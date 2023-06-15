@@ -5,6 +5,18 @@ return {
         dependencies = {
             "MunifTanjim/nui.nvim"
         },
+        opts = {
+            window = {
+                mappings = {
+                    ["a"] = {
+                        "add",
+                        config = {
+                            show_path = "relative",
+                        }
+                    }
+                }
+            }
+        },
         keys = {
             {
                 "<leader>fe",
