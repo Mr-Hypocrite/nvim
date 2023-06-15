@@ -2,10 +2,15 @@ return {
     {
         "nvim-neo-tree/neo-tree.nvim",
         cmd = "Neotree",
+        branch = "v2.x",
+        lazy = false,
         dependencies = {
             "MunifTanjim/nui.nvim"
         },
         opts = {
+            filesystem = {
+                hijack_netrw_behavior = "open_default",
+            },
             window = {
                 mappings = {
                     ["a"] = {
