@@ -5,10 +5,15 @@ return {
         branch = "v2.x",
         lazy = false,
         dependencies = {
-            "MunifTanjim/nui.nvim"
+            "MunifTanjim/nui.nvim",
         },
         opts = {
             filesystem = {
+                filtered_items = {
+                    visible = true,
+                    hide_dotfiles = false,
+                    hide_gitignored = true,
+                },
                 hijack_netrw_behavior = "open_default",
             },
             window = {
@@ -17,10 +22,10 @@ return {
                         "add",
                         config = {
                             show_path = "relative",
-                        }
-                    }
-                }
-            }
+                        },
+                    },
+                },
+            },
         },
         keys = {
             {
@@ -38,7 +43,7 @@ return {
         "nvim-telescope/telescope.nvim",
         tag = "0.1.1",
         dependecies = {
-            "nvim-lua/plenary.nvim"
+            "nvim-lua/plenary.nvim",
         },
         keys = {
             {
@@ -46,16 +51,16 @@ return {
                 function()
                     require("telescope.builtin").find_files()
                 end,
-                desc = "Search files"
+                desc = "Search files",
             },
 
             {
                 "<leader>sg",
-                function ()
+                function()
                     require("telescope.builtin").live_grep()
                 end,
-                desc = "Live grep"
-            }
+                desc = "Live grep",
+            },
         },
         opts = {
             defaults = {
@@ -63,12 +68,16 @@ return {
                 selection_caret = "",
                 mappings = {
                     i = {
-                        ["<C-k>"] = function(...) require("telescope.actions").move_selection_previous(...) end,
-                        ["<C-j>"] = function(...) require("telescope.actions").move_selection_next(...) end,
-                    }
-                }
-            }
-        }
+                        ["<C-k>"] = function(...)
+                            require("telescope.actions").move_selection_previous(...)
+                        end,
+                        ["<C-j>"] = function(...)
+                            require("telescope.actions").move_selection_next(...)
+                        end,
+                    },
+                },
+            },
+        },
     },
 
     {
@@ -76,9 +85,9 @@ return {
         event = "VeryLazy",
         opts = {
             plugins = {
-                spelling = true
-            }
-        }
+                spelling = true,
+            },
+        },
     },
 
     {
@@ -95,8 +104,8 @@ return {
                 topdelete = { text = "" },
                 changedelete = { text = "▎" },
                 untracked = { text = "▎" },
-            }
-        }
+            },
+        },
     },
 
     {
@@ -106,7 +115,7 @@ return {
             "BufNewFile",
         },
         opts = {
-            delay = 200
+            delay = 200,
         },
         config = function(_, opts)
             require("illuminate").configure(opts)
@@ -114,7 +123,7 @@ return {
         keys = {
             { "]]", desc = "Next Reference" },
             { "[[", desc = "Prev Reference" },
-        }
+        },
     },
 
     {
@@ -129,7 +138,7 @@ return {
     {
         "folke/trouble.nvim",
         dependecies = {
-            "nvim-tree/nvim-web-devicons"
+            "nvim-tree/nvim-web-devicons",
         },
         keys = {
             { "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
@@ -137,24 +146,37 @@ return {
             { "<leader>xL", "<cmd>TroubleToggle loclist<cr>", desc = "Location List (Trouble)" },
             { "<leader>xQ", "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix List (Trouble)" },
         },
-        opts = {
-
-        }
+        opts = {},
     },
 
     {
         "akinsho/toggleterm.nvim",
-        opts = {},
+        opts = {
+            winbar = {
+                enabled = true,
+            },
+        },
         keys = {
             {
                 "<leader>gg",
                 function()
                     local Terminal = require("toggleterm.terminal").Terminal
-                    local lazygit = Terminal:new({ cmd = "lazygit", hidden = true, direction = "float", float_opts = { border = "double" }})
+                    local lazygit = Terminal:new({
+                        cmd = "lazygit",
+                        hidden = true,
+                        direction = "float",
+                        float_opts = { border = "double" },
+                    })
                     lazygit:toggle()
                 end,
                 desc = "Lazygit",
-            }
-        }
-    }
+            },
+            {
+                "<C-\\>",
+                function()
+                    require("toggleterm").toggle()
+                end,
+            },
+        },
+    },
 }
