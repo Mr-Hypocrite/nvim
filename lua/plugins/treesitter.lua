@@ -7,18 +7,21 @@ return {
             "BufNewFile",
         },
         dependencies = {
-            { "nvim-treesitter/nvim-treesitter-textobjects", },
+            { "nvim-treesitter/nvim-treesitter-textobjects" },
         },
         keys = {
             { "<C-Space>", desc = "Increment selection" },
-            { "<bs>", desc = "Decrement selection", mode = "x" }
+            { "<bs>", desc = "Decrement selection", mode = "x" },
         },
         opts = {
+            sync_install = false,
+            auto_install = true,
             highlight = {
-                enable = true
+                enable = true,
+                additional_vim_regex_highlighting = false,
             },
             indent = {
-                enable = true
+                enable = true,
             },
             ensure_installed = {
                 "bash",
@@ -39,6 +42,7 @@ return {
                 "vim",
                 "vimdoc",
                 "yaml",
+                "dockerfile",
             },
             incremental_selection = {
                 enable = true,
@@ -46,9 +50,9 @@ return {
                     init_selection = "<C-Space>",
                     node_incremental = "<C-Space>",
                     scope_incremental = false,
-                    node_decremental = "<bs>"
-                }
-            }
-        }
-    }
+                    node_decremental = "<bs>",
+                },
+            },
+        },
+    },
 }
