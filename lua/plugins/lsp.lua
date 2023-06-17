@@ -16,6 +16,7 @@ return {
             "BufNewFile",
         },
         dependencies = {
+            "folke/neodev.nvim",
             "hrsh7th/cmp-nvim-lsp",
             { "williamboman/mason-lspconfig.nvim" },
             {
@@ -50,7 +51,23 @@ return {
             })
 
             require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
-            require("lspconfig").tsserver.setup({})
+            require("lspconfig").tsserver.setup({
+                commands = {
+                    OrganizeImports = {
+                        function()
+                            local params = {
+                                command = "_typescript.organizeImports",
+                                arguments = { vim.api.nvim_buf_get_name(0) },
+                                title = "OrganizeImports",
+                            }
+                            vim.lsp.buf.execute_command(params)
+                        end,
+                        description = "Organize Imports",
+                    },
+                },
+            })
+
+            vim.keymap.set("n", "<leader>oi", ":OrganizeImports<CR>")
 
             lsp.setup()
         end,
@@ -64,9 +81,18 @@ return {
             null_ls.setup({
                 sources = {
                     null_ls.builtins.formatting.stylua,
-                    null_ls.builtins.formatting.prettier_eslint,
+                    null_ls.builtins.formatting.eslint_d,
+                    null_ls.builtins.formatting.prettierd,
                 },
             })
+        end,
+    },
+
+    {
+        "folke/neodev.nvim",
+        opts = {},
+        config = function()
+            require("neodev").setup()
         end,
     },
 }
