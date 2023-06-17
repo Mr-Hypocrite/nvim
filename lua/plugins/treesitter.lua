@@ -43,6 +43,7 @@ return {
                 "vimdoc",
                 "yaml",
                 "dockerfile",
+                "http",
             },
             incremental_selection = {
                 enable = true,
