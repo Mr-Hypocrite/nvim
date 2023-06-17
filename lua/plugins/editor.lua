@@ -61,6 +61,14 @@ return {
                 end,
                 desc = "Live grep",
             },
+
+            {
+                "<leader>gc",
+                function()
+                    require("telescope.builtin").git_commits()
+                end,
+                desc = "Git Commits",
+            },
         },
         opts = {
             defaults = {
