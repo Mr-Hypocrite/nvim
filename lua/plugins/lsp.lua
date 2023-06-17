@@ -66,6 +66,7 @@ return {
                     },
                 },
             })
+            require("lspconfig").jsonls.setup({})
 
             vim.keymap.set("n", "<leader>oi", ":OrganizeImports<CR>")
 
@@ -79,10 +80,12 @@ return {
             local null_ls = require("null-ls")
 
             null_ls.setup({
+                debug = true,
                 sources = {
                     null_ls.builtins.formatting.stylua,
-                    null_ls.builtins.formatting.eslint_d,
+                    null_ls.builtins.formatting.fixjson,
                     null_ls.builtins.formatting.prettierd,
+                    null_ls.builtins.formatting.eslint_d,
                 },
             })
         end,
