@@ -3,8 +3,8 @@ return {
     {
         "L3MON4D3/LuaSnip",
         build = (not jit.os:find("Windows"))
-        and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
-        or nil,
+                and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
+            or nil,
         dependencies = {
             "rafamadriz/friendly-snippets",
             config = function()
@@ -38,16 +38,16 @@ return {
             "hrsh7th/cmp-path",
             "saadparwaiz1/cmp_luasnip",
         },
-        opts = function ()
+        opts = function()
             vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
             local cmp = require("cmp")
             return {
                 completion = {
-                    completeopt = "menu,menuone,noinsert"
+                    completeopt = "menu,menuone,noinsert",
                 },
                 snippet = {
-                    expand = function (args)
-                        require("luasnip").lsp_expand(args)
+                    expand = function(args)
+                        require("luasnip").lsp_expand(args.body)
                     end,
                 },
                 mapping = cmp.mapping.preset.insert({
@@ -55,35 +55,27 @@ return {
                     ["<C-k>"] = cmp.mapping.select_prev_item({ behavior = cmp.SelectBehavior.Insert }),
                     ["<C-Space>"] = cmp.mapping.complete(),
                     ["<C-e>"] = cmp.mapping.abort(),
-                    ["<CR>"] = cmp.mapping.confirm({ behavior = cmp.SelectBehavior.Replace, select = true}),
+                    ["<CR>"] = cmp.mapping.confirm({ behavior = cmp.SelectBehavior.Replace, select = true }),
                 }),
                 sources = cmp.config.sources({
                     { name = "path" },
                     { name = "nvim_lsp" },
                     { name = "buffer", keyword_length = 5 },
                     { name = "luasnip", keyword_length = 3 },
-                })
+                }),
             }
-        end
-    },
-
-
-    {
-           "echasnovski/mini.pairs",
-        event = "VeryLazy",
-        opts = {}
+        end,
     },
 
     {
-        "echasnovski/mini.comment",
+        "echasnovski/mini.pairs",
         event = "VeryLazy",
-        opts = {
-            options = {
-                custom_commentstring = function()
-                    return require("ts_context_commentstring.internal").calculate_commentstring() or vim.bo.commentstring
-                end,
-            },
-        },
+        opts = {},
+    },
+
+    {
+        "numToStr/Comment.nvim",
+        event = "VeryLazy",
+        opts = {},
     },
 }
-
