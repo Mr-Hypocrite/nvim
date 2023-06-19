@@ -83,7 +83,6 @@ return {
                 debug = true,
                 sources = {
                     null_ls.builtins.formatting.stylua,
-                    null_ls.builtins.formatting.fixjson,
                     null_ls.builtins.formatting.prettierd,
                     null_ls.builtins.formatting.eslint_d,
                 },
