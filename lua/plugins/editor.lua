@@ -42,7 +42,7 @@ return {
     {
         "nvim-telescope/telescope.nvim",
         tag = "0.1.1",
-        dependecies = {
+        dependencies = {
             "nvim-lua/plenary.nvim",
         },
         keys = {
@@ -63,7 +63,7 @@ return {
             },
 
             {
-                "<leader>gc",
+                "<leader>sc",
                 function()
                     require("telescope.builtin").git_commits()
                 end,
@@ -145,7 +145,7 @@ return {
 
     {
         "folke/trouble.nvim",
-        dependecies = {
+        dependencies = {
             "nvim-tree/nvim-web-devicons",
         },
         keys = {
