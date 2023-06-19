@@ -2,6 +2,14 @@
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 
+vim.g.loaded_netrwPlugin = 1
+vim.g.loaded_netrw = 1
+
+vim.g.loaded_python_provider = 0
+vim.g.loaded_python3_provider = 0
+vim.g.loaded_ruby_provider = 0
+vim.g.loaded_perl_provider = 0
+
 local opt = vim.opt
 
 opt.autowrite = true -- Enable auto write
@@ -47,8 +55,8 @@ opt.winminwidth = 5 -- Minimum window width
 opt.wrap = false -- Disable line wrap
 
 if vim.fn.has("nvim-0.9.0") == 1 then
-  opt.splitkeep = "screen"
-  opt.shortmess:append({ C = true })
+    opt.splitkeep = "screen"
+    opt.shortmess:append({ C = true })
 end
 
 -- Fix markdown indentation settings
