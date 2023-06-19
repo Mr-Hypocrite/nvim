@@ -1,8 +1,8 @@
 return {
     {
         "nvim-lualine/lualine.nvim",
-        dependecies = {
-            "nvim-tree/nvim-web-devicons"
+        dependencies = {
+            "nvim-tree/nvim-web-devicons",
         },
         opts = {},
     },
@@ -10,7 +10,7 @@ return {
     {
         "akinsho/bufferline.nvim",
         event = "VeryLazy",
-        key = {
+        keys = {
             { "<leader>bp", "<Cmd>BufferLineTogglePin<CR>", desc = "Toggle pin" },
             { "<leader>bP", "<Cmd>BufferLineGroupClose ungrouped<CR>", desc = "Delete non-pinned buffers" },
         },
@@ -18,11 +18,11 @@ return {
             options = {
                 offsets = {
                     {
-                        filetype = "neo-tree"
-                    }
-                }
-            }
-        }
+                        filetype = "neo-tree",
+                    },
+                },
+            },
+        },
     },
 
     {
