@@ -11,8 +11,6 @@ return {
             filesystem = {
                 filtered_items = {
                     visible = true,
-                    hide_dotfiles = false,
-                    hide_gitignored = true,
                 },
                 hijack_netrw_behavior = "open_default",
             },
@@ -47,7 +45,7 @@ return {
         },
         keys = {
             {
-                "<leader>sf",
+                "<leader>ff",
                 function()
                     require("telescope.builtin").find_files()
                 end,
@@ -55,7 +53,7 @@ return {
             },
 
             {
-                "<leader>sg",
+                "<leader>fg",
                 function()
                     require("telescope.builtin").live_grep()
                 end,
@@ -63,7 +61,7 @@ return {
             },
 
             {
-                "<leader>sc",
+                "<leader>fc",
                 function()
                     require("telescope.builtin").git_commits()
                 end,

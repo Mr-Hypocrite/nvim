@@ -80,4 +80,9 @@ return {
         event = "VeryLazy",
         opts = {},
     },
+
+    {
+        "echasnovski/mini.surround",
+        opts = {},
+    },
 }
