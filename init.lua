@@ -1,4 +1,4 @@
-require("dino.options")
-require("dino.keymaps")
-require("dino.autocmds")
-require("dino.lazy")
+require("config.options")
+require("config.keymaps")
+require("config.autocmds")
+require("config.lazy")
