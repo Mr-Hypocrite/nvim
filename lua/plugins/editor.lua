@@ -158,30 +158,9 @@ return {
     {
         "akinsho/toggleterm.nvim",
         opts = {
+            open_mapping = [[<C-\>]],
             winbar = {
                 enabled = true,
-            },
-        },
-        keys = {
-            {
-                "<leader>gg",
-                function()
-                    local Terminal = require("toggleterm.terminal").Terminal
-                    local lazygit = Terminal:new({
-                        cmd = "lazygit",
-                        hidden = true,
-                        direction = "float",
-                        float_opts = { border = "double" },
-                    })
-                    lazygit:toggle()
-                end,
-                desc = "Lazygit",
-            },
-            {
-                "<C-\\>",
-                function()
-                    require("toggleterm").toggle()
-                end,
             },
         },
     },
@@ -189,5 +168,25 @@ return {
     {
         "christoomey/vim-tmux-navigator",
         config = false,
+    },
+
+    {
+        "kdheepak/lazygit.nvim",
+        dependencies = {
+            "nvim-telescope/telescope.nvim",
+            "nvim-lua/plenary.nvim",
+        },
+        keys = {
+            {
+                "<leader>gg",
+                function()
+                    require("lazygit").lazygit()
+                end,
+                desc = "Lazygit",
+            },
+        },
+        config = function()
+            require("telescope").load_extension("lazygit")
+        end,
     },
 }
