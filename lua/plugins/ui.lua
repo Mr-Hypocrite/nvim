@@ -4,7 +4,15 @@ return {
         dependencies = {
             "nvim-tree/nvim-web-devicons",
         },
-        opts = {},
+        opts = {
+            sections = {
+                lualine_a = {
+                    "mode",
+                },
+                lualine_b = { "branch", "diff", "diagnostics" },
+                lualine_c = { { "filename", path = 1 } },
+            },
+        },
     },
 
     {
@@ -29,7 +37,6 @@ return {
         "lukas-reineke/indent-blankline.nvim",
         event = { "BufReadPost", "BufNewFile" },
         opts = {
-            -- char = "▏",
             char = "│",
             filetype_exclude = {
                 "help",
@@ -77,5 +84,26 @@ return {
                 end,
             })
         end,
+    },
+
+    {
+        "stevearc/dressing.nvim",
+        opts = {
+            select = {
+                enabled = true,
+                backend = {
+                    "telescope",
+                    "fzf",
+                    "builtin",
+                    "nui",
+                },
+                telescope = require("telescope.themes").get_ivy(),
+            },
+        },
+    },
+
+    {
+        "rcarriga/nvim-notify",
+        opts = {},
     },
 }
