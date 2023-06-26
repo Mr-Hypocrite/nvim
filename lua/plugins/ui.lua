@@ -19,18 +19,15 @@ return {
             },
             sections = {
                 lualine_a = {
-                    "mode",
+                    { "mode", icons_enabled = true },
                 },
-                lualine_b = { "branch", "diff", "diagnostics" },
+                lualine_b = {
+                    "branch",
+                    "diff",
+                    "diagnostics",
+                },
                 lualine_c = {
-                    { "filetype", icon_only = true, separator = "", padding = { left = 1, right = 0 } },
-                    {
-                        "filename",
-                        path = 1,
-                        symbols = {
-                            modified = require("config.icons").FileModified,
-                        },
-                    },
+                    { "filename", path = 1 },
                 },
             },
         },
