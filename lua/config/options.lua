@@ -77,9 +77,12 @@ opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.winminwidth = 7 -- Minimum window width
 opt.wrap = false -- Disable line wrap
 
--- opt.colorcolumn = "82"
+opt.colorcolumn = "120"
 
-opt.swapfile = false
-opt.undofile = true
-opt.backup = false
-opt.undodir = os.getenv("HOME") .. "/.vim/undodir"
+if vim.fn.has("nvim-0.9.0") == 1 then
+    opt.splitkeep = "screen"
+    opt.shortmess:append({ C = true })
+end
+
+-- Fix markdown indentation settings
+vim.g.markdown_recommended_style = 0
