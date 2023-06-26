@@ -32,4 +32,9 @@ return {
         config = true,
         cmd = "Glow",
     },
+
+    {
+        "norcalli/nvim-colorizer.lua",
+        opts = { "*" },
+    },
 }
