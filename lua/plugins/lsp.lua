@@ -28,7 +28,7 @@ return {
             local lsp = require("lsp-zero")
 
             lsp.on_attach(function(_, bufnr)
-                lsp.default_keymaps({ buffer = bufnr })
+                lsp.default_keymaps({ buffer = bufnr, preserve_mappings = false })
             end)
 
             lsp.format_on_save({
@@ -40,6 +40,7 @@ return {
                     ["null-ls"] = {
                         "javascript",
                         "typescript",
+                        "typescriptreact",
                         "lua",
                     },
                 },
@@ -51,26 +52,14 @@ return {
             })
 
             require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
-            require("lspconfig").tsserver.setup({
-                commands = {
-                    OrganizeImports = {
-                        function()
-                            local params = {
-                                command = "_typescript.organizeImports",
-                                arguments = { vim.api.nvim_buf_get_name(0) },
-                                title = "OrganizeImports",
-                            }
-                            vim.lsp.buf.execute_command(params)
-                        end,
-                        description = "Organize Imports",
-                    },
-                },
-            })
-            require("lspconfig").jsonls.setup({})
-
-            vim.keymap.set("n", "<leader>oi", ":OrganizeImports<CR>")
 
             lsp.setup()
+        end,
+    },
+    {
+        "jose-elias-alvarez/typescript.nvim",
+        config = function()
+            require("typescript").setup({})
         end,
     },
 
@@ -85,6 +74,7 @@ return {
                     null_ls.builtins.formatting.stylua,
                     null_ls.builtins.formatting.prettierd,
                     null_ls.builtins.formatting.eslint_d,
+                    require("typescript.extensions.null-ls.code-actions"),
                 },
             })
         end,
