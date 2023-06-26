@@ -81,7 +81,22 @@ return {
                 function()
                     require("telescope.builtin").live_grep()
                 end,
-                desc = "[ L ]ive [g]rep",
+                desc = "Live grep",
+            },
+            {
+                "<leader>gf",
+                function()
+                    require("telescope.builtin").git_files()
+                end,
+                desc = "Live grep",
+            },
+
+            {
+                "<leader>fc",
+                function()
+                    require("telescope.builtin").git_commits()
+                end,
+                desc = "Git Commits",
             },
 
             {
@@ -140,25 +155,17 @@ return {
         },
         opts = {
             defaults = {
-                path_display = { "truncate" },
+                prompt_prefix = "",
+                selection_caret = "",
                 sorting_strategy = "ascending",
                 layout_config = {
                     horizontal = {
                         prompt_position = "top",
-                        preview_width = 0.55,
+                        width = 0.75,
+                        height = 0.65,
+                        preview_width = 0.6,
                     },
-                    vertical = {
-                        mirror = false,
-                    },
-                    width = 0.87,
-                    height = 0.80,
-                    preview_cutoff = 120,
                 },
-                prompt_prefix = require("config.icons").Selected,
-                selection_caret = require("config.icons").Selected,
-                selection_strategy = "reset",
-                border = {},
-                borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
                 mappings = {
                     i = {
                         ["<C-k>"] = function(...)
@@ -326,12 +333,11 @@ return {
     },
 
     {
-        "mrjones2014/smart-splits.nvim",
-        opts = {},
-    },
-
-    {
-        "folke/todo-comments.nvim",
-        opts = {},
+        "folke/noice.nvim",
+        event = "VeryLazy",
+        dependencies = {
+            "MunifTanjim/nui.nvim",
+            "rcarriga/nvim-notify",
+        },
     },
 }
