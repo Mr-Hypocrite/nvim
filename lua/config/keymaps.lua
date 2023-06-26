@@ -8,10 +8,18 @@ map({ "n", "x" }, "j", "v:count == 0 ? 'gj' : 'j'", { expr = true, silent = true
 map({ "n", "x" }, "k", "v:count == 0 ? 'gk' : 'k'", { expr = true, silent = true })
 
 -- Move to window using the <ctrl> hjkl keys
-map("n", "<C-h>", "<C-w>h", { desc = "Go to left window", remap = true })
-map("n", "<C-j>", "<C-w>j", { desc = "Go to lower window", remap = true })
-map("n", "<C-k>", "<C-w>k", { desc = "Go to upper window", remap = true })
-map("n", "<C-l>", "<C-w>l", { desc = "Go to right window", remap = true })
+map("n", "<C-h>", function()
+    require("smart-splits").move_cursor_left()
+end, { desc = "Go to left window", remap = true })
+map("n", "<C-j>", function()
+    require("smart-splits").move_cursor_right()
+end, { desc = "Go to lower window", remap = true })
+map("n", "<C-k>", function()
+    require("smart-splits").move_cursor_up()
+end, { desc = "Go to upper window", remap = true })
+map("n", "<C-l>", function()
+    require("smart-splits").move_cursor_down()
+end, { desc = "Go to right window", remap = true })
 
 map("n", "<S-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
 map("n", "<S-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
@@ -25,20 +33,20 @@ map("n", "<A-H>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width
 map("n", "<A-L>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
 -- Move Lines
-map("n", "<A-j>", "<cmd>m .+1<cr>==", { desc = "Move down" })
-map("n", "<A-k>", "<cmd>m .-2<cr>==", { desc = "Move up" })
-map("i", "<A-j>", "<esc><cmd>m .+1<cr>==gi", { desc = "Move down" })
-map("i", "<A-k>", "<esc><cmd>m .-2<cr>==gi", { desc = "Move up" })
-map("v", "<A-j>", ":m '>+1<cr>gv=gv", { desc = "Move down" })
-map("v", "<A-k>", ":m '<-2<cr>gv=gv", { desc = "Move up" })
+map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move down" })
+map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move up" })
 
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 
 map({ "n", "x" }, "gw", "*N", { desc = "Search word under cursor" })
 
--- better indenting
-map("v", "<", "<gv")
-map("v", ">", ">gv")
+map("n", "<C-d>", "<C-d>zz")
+map("n", "<C-u>", "<C-u>zz")
+
+map("x", "<leader>p", '"_dP')
+map("n", "<leader>y", '"+y')
+map("v", "<leader>y", '"+y')
+map("n", "<leader>Y", '"+Y')
 
 -- lazy
 map("n", "<leader>l", "<cmd>:Lazy<cr>", { desc = "Lazy" })
