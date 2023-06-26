@@ -3,37 +3,53 @@ return {
         "nvim-neo-tree/neo-tree.nvim",
         cmd = "Neotree",
         branch = "v2.x",
-        lazy = false,
         dependencies = {
             "MunifTanjim/nui.nvim",
         },
         opts = {
-            filesystem = {
-                filtered_items = {
-                    visible = true,
-                },
-                hijack_netrw_behavior = "open_default",
+            close_if_last_window = true,
+            sources = {
+                "filesystem",
+                "buffers",
+                "git_status",
             },
-            window = {
-                mappings = {
-                    ["a"] = {
-                        "add",
-                        config = {
-                            show_path = "relative",
-                        },
-                    },
+            source_selector = {
+                winbar = true,
+                content_layout = "center",
+                sources = {
+                    { source = "filesystem", display_name = require("config.icons").FolderClosed .. " File" },
+                    { source = "buffers", display_name = require("config.icons").DefaultFile .. " Bufs" },
+                    { source = "git_status", display_name = require("config.icons").Git .. " Git" },
+                    { source = "diagnostics", display_name = require("config.icons").Diagnostic .. " Diagnostic" },
                 },
+            },
+            default_component_configs = {
+                indent = {
+                    padding = 0,
+                },
+                icon = {
+                    folder_closed = require("config.icons").FolderClosed,
+                    folder_open = require("config.icons").FolderOpen,
+                    folder_empty = require("config.icons").FolderEmpty,
+                    folder_empty_open = require("config.icons").FolderEmpty,
+                    default = require("config.icons").DefaultFile,
+                },
+            },
+            filesystem = {
+                follow_current_file = true,
+                hijack_netrw_behavior = "open_current",
+                use_libuv_file_watcher = true,
             },
         },
         keys = {
             {
                 "<leader>fe",
                 function()
-                    require("neo-tree.command").execute({ toggle = true })
+                    require("neo-tree.command").execute({
+                        toggle = true,
+                    })
                 end,
-                desc = "Explorer NeoTree (root dir)",
             },
-            { "<leader>e", "<leader>fe", desc = "Explorer NeoTree (root dir)", remap = true },
         },
     },
 
@@ -51,9 +67,16 @@ return {
                 end,
                 desc = "Search files",
             },
+            {
+                "<leader>fF",
+                function()
+                    require("telescope.builtin").find_files({ hidden = true, no_ignore = true })
+                end,
+                desc = "Search files",
+            },
 
             {
-                "<leader>fg",
+                "<leader>lg",
                 function()
                     require("telescope.builtin").live_grep()
                 end,
@@ -67,11 +90,33 @@ return {
                 end,
                 desc = "Git Commits",
             },
+
+            {
+                "<leader>of",
+                function()
+                    require("telescope.builtin").oldfiles()
+                end,
+                desc = "Git Commits",
+            },
         },
         opts = {
             defaults = {
-                prompt_prefix = "",
-                selection_caret = "",
+                path_display = { "truncate" },
+                sorting_strategy = "ascending",
+                layout_config = {
+                    horizontal = {
+                        prompt_position = "top",
+                        preview_width = 0.55,
+                    },
+                    vertical = {
+                        mirror = false,
+                    },
+                    width = 0.87,
+                    height = 0.80,
+                    preview_cutoff = 120,
+                },
+                prompt_prefix = require("config.icons").Selected,
+                selection_caret = require("config.icons").Selected,
                 mappings = {
                     i = {
                         ["<C-k>"] = function(...)
@@ -79,6 +124,11 @@ return {
                         end,
                         ["<C-j>"] = function(...)
                             require("telescope.actions").move_selection_next(...)
+                        end,
+                    },
+                    n = {
+                        q = function(...)
+                            require("telescope.actions").close(...)
                         end,
                     },
                 },
@@ -188,5 +238,15 @@ return {
         config = function()
             require("telescope").load_extension("lazygit")
         end,
+    },
+
+    {
+        "mrjones2014/smart-splits.nvim",
+        opts = {},
+    },
+
+    {
+        "folke/todo-comments.nvim",
+        opts = {},
     },
 }
