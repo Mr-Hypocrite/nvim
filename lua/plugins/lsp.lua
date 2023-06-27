@@ -27,8 +27,21 @@ return {
         config = function()
             local lsp = require("lsp-zero")
 
-            lsp.on_attach(function(_, bufnr)
-                lsp.default_keymaps({ buffer = bufnr, preserve_mappings = false })
+            lsp.on_attach(function(_)
+                vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "[R]e[N]ame" })
+                vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ction" })
+                vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { desc = "[G]oto [D]efinition" })
+                vim.keymap.set(
+                    "n",
+                    "<leader>gr",
+                    require("telescope.builtin").lsp_references,
+                    { desc = "[G]oto [R]eference" }
+                )
+                vim.keymap.set("n", "<leader>gI", vim.lsp.buf.implementation, { desc = "[G]oto [I]mplementation" })
+                vim.keymap.set("n", "<leader>ws", vim.lsp.buf.rename, { desc = "Workspace Symbols" })
+                vim.keymap.set("n", "<leader>ds", vim.lsp.buf.rename, { desc = "Document Symbols" })
+                vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
+                vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { desc = "Hover Documentation" })
             end)
 
             lsp.format_on_save({
