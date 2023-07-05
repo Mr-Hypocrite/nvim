@@ -12,25 +12,23 @@ map("n", "<C-h>", function()
     require("smart-splits").move_cursor_left()
 end, { desc = "Go to left window", remap = true })
 map("n", "<C-j>", function()
-    require("smart-splits").move_cursor_right()
+    require("smart-splits").move_cursor_down()
 end, { desc = "Go to lower window", remap = true })
 map("n", "<C-k>", function()
     require("smart-splits").move_cursor_up()
 end, { desc = "Go to upper window", remap = true })
 map("n", "<C-l>", function()
-    require("smart-splits").move_cursor_down()
+    require("smart-splits").move_cursor_right()
 end, { desc = "Go to right window", remap = true })
 
 map("n", "<S-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
 map("n", "<S-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
-map("n", "[b", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
-map("n", "]b", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
 
 -- Resize window using <ctrl> arrow keys
-map("n", "<A-K>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
-map("n", "<A-J>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
-map("n", "<A-H>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
-map("n", "<A-L>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
+map("n", "<C-Right>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
+map("n", "<C-Left>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
+map("n", "<C-Down>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
+map("n", "<C-Up>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
 -- Move Lines
 map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move down" })
@@ -71,3 +69,5 @@ map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 map("t", "<esc>", [[<c-\><c-n>]], { desc = "Escape on terminal" })
+
+map("n", "<C-a>", "gg<S-v>G", { desc = "Select all" })
