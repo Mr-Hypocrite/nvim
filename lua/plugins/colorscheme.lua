@@ -1,27 +1,11 @@
 return {
-    {
-        "dineshsalunke/poimandres.nvim",
-        priority = 1000,
-        opts = {
-            disable_italics = true,
-        },
-        config = function()
-            require("poimandres").setup({
-                groups = {
-                    border = "blueGray1",
-                },
-            })
-            vim.cmd.colorscheme("poimandres")
-        end,
-    },
 
     {
-        "folke/tokyonight.nvim",
-        lazy = false,
-        priority = 1001,
-        opts = {},
+        "catppuccin/nvim",
+        name = "catppuccin",
+        priority = 1003,
         config = function()
-            -- vim.cmd.colorscheme("tokyonight-night")
+            vim.cmd.colorscheme("catppuccin-mocha")
         end,
     },
 }
