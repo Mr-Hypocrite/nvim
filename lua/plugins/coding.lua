@@ -108,4 +108,30 @@ return {
         "echasnovski/mini.surround",
         opts = {},
     },
+
+    {
+        "folke/zen-mode.nvim",
+        keys = {
+            {
+                "<leader>zm",
+                function()
+                    require("zen-mode").toggle({
+                        window = {
+                            width = 0.85,
+                        },
+                    })
+                end,
+            },
+        },
+        opts = {
+            plugins = {
+                twilight = { enabled = true },
+            },
+        },
+    },
+
+    {
+        "folke/twilight.nvim",
+        opts = {},
+    },
 }
