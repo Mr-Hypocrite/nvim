@@ -59,20 +59,21 @@ return {
         dependencies = {
             "nvim-lua/plenary.nvim",
         },
+        cmd = "Telescope",
         keys = {
             {
                 "<leader>ff",
                 function()
                     require("telescope.builtin").find_files()
                 end,
-                desc = "Search files",
+                desc = "[ F ]ind files",
             },
             {
                 "<leader>fF",
                 function()
                     require("telescope.builtin").find_files({ hidden = true, no_ignore = true })
                 end,
-                desc = "Search files",
+                desc = "[ F ]ind [ F ]iles",
             },
 
             {
@@ -80,15 +81,7 @@ return {
                 function()
                     require("telescope.builtin").live_grep()
                 end,
-                desc = "Live grep",
-            },
-
-            {
-                "<leader>fc",
-                function()
-                    require("telescope.builtin").git_commits()
-                end,
-                desc = "Git Commits",
+                desc = "[ L ]ive [g]rep",
             },
 
             {
@@ -96,7 +89,53 @@ return {
                 function()
                     require("telescope.builtin").oldfiles()
                 end,
-                desc = "Git Commits",
+                desc = "[ O ]ld [ F ]iles",
+            },
+
+            {
+                "<leader>ds",
+                function()
+                    require("telescope.builtin").lsp_document_symbols()
+                end,
+                desc = "[ D ]ocument [ S ]ymbols",
+            },
+
+            {
+                "<leader>wss",
+                function()
+                    require("telescope.builtin").lsp_dynamic_workspace_symbols()
+                end,
+                desc = "[ W ]orkspace [ S ]ymbol[ s ]",
+                remap = true,
+            },
+
+            {
+                "<leader>lr",
+                function()
+                    require("telescope.builtin").lsp_references()
+                end,
+                desc = "[L]ist [R]erefrences",
+            },
+            {
+                "<leader>ld",
+                function()
+                    require("telescope.builtin").diagnostics()
+                end,
+                desc = "[ L ]ist [ D ]iagnostics",
+            },
+            {
+                "<leader>li",
+                function()
+                    require("telescope.builtin").lsp_implementations()
+                end,
+                desc = "[ L ]ist [ I ]mplementation",
+            },
+            {
+                "<leader>ldi",
+                function()
+                    require("telescope.builtin").lsp_definitions()
+                end,
+                desc = "[ L ]ist [ D ]ef[ i ]nitions",
             },
         },
         opts = {
@@ -205,6 +244,13 @@ return {
         opts = {},
     },
 
+    -- We need to make sure we put this before the toggleterm
+    -- cause vim-tmux-navigator also has a <c-\> keybinding
+    {
+        "christoomey/vim-tmux-navigator",
+        config = false,
+    },
+
     {
         "akinsho/toggleterm.nvim",
         opts = {
@@ -213,11 +259,6 @@ return {
                 enabled = true,
             },
         },
-    },
-
-    {
-        "christoomey/vim-tmux-navigator",
-        config = false,
     },
 
     {
