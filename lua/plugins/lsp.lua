@@ -38,8 +38,6 @@ return {
                     { desc = "[G]oto [R]eference" }
                 )
                 vim.keymap.set("n", "<leader>gI", vim.lsp.buf.implementation, { desc = "[G]oto [I]mplementation" })
-                vim.keymap.set("n", "<leader>ws", vim.lsp.buf.rename, { desc = "Workspace Symbols" })
-                vim.keymap.set("n", "<leader>ds", vim.lsp.buf.rename, { desc = "Document Symbols" })
                 vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
                 vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { desc = "Hover Documentation" })
             end)
@@ -65,14 +63,37 @@ return {
             })
 
             require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
+            require("lspconfig").tsserver.setup({
+                single_file_support = false,
+                root_dir = function(...)
+                    return require("lspconfig.util").root_pattern(".git")(...)
+                end,
+                commands = {
+                    TypescriptOrganizeImports = {
+                        function()
+                            local param = {
+                                command = "_typescript.organizeImports",
+                                arguments = { vim.api.nvim_buf_get_name(0) },
+                                title = "Organize ts imports",
+                            }
+                            vim.lsp.buf.execute_command(param)
+                        end,
+                        description = "Organize imports",
+                    },
+                },
+            })
+
+            vim.keymap.set("n", "<leader>oi", "<cmd>TypescriptOrganizeImports<CR>", { silent = true, noremap = true })
+            vim.keymap.set(
+                "n",
+                "<leader>ami",
+                "<cmd>TypescriptAddMissingImports<CR>",
+                { silent = true, noremap = true }
+            )
+            vim.keymap.set("n", "<leader>fa", "<cmd>TypescriptFixAll<CR>", { silent = true, noremap = true })
+            vim.keymap.set("n", "<leader>ru", "<cmd>TypescriptRemoveUnused<CR>", { silent = true, noremap = true })
 
             lsp.setup()
-        end,
-    },
-    {
-        "jose-elias-alvarez/typescript.nvim",
-        config = function()
-            require("typescript").setup({})
         end,
     },
 
@@ -87,7 +108,6 @@ return {
                     null_ls.builtins.formatting.stylua,
                     null_ls.builtins.formatting.prettierd,
                     null_ls.builtins.formatting.eslint_d,
-                    require("typescript.extensions.null-ls.code-actions"),
                 },
             })
         end,
