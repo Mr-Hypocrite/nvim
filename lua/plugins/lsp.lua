@@ -65,9 +65,7 @@ return {
             require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
             require("lspconfig").tsserver.setup({
                 single_file_support = false,
-                root_dir = function(...)
-                    return require("lspconfig.util").root_pattern(".git")(...)
-                end,
+                root_dir = util.root_pattern(".git"),
                 commands = {
                     TypescriptOrganizeImports = {
                         function()
