@@ -53,6 +53,7 @@ return {
                         "typescript",
                         "typescriptreact",
                         "lua",
+                        "go",
                     },
                 },
             })
@@ -60,10 +61,14 @@ return {
             lsp.ensure_installed({
                 "tsserver",
                 "lua_ls",
+                "gopls",
             })
 
-            require("lspconfig").lua_ls.setup(lsp.nvim_lua_ls())
-            require("lspconfig").tsserver.setup({
+            local lspconfig = require("lspconfig")
+            local util = require("lspconfig/util")
+
+            lspconfig.lua_ls.setup(lsp.nvim_lua_ls())
+            lspconfig.tsserver.setup({
                 single_file_support = false,
                 root_dir = util.root_pattern(".git"),
                 commands = {
@@ -79,6 +84,16 @@ return {
                         description = "Organize imports",
                     },
                 },
+            })
+            lspconfig.gopls.setup({
+                cmd = { "gopls" },
+                filetypes = {
+                    "go",
+                    "gomod",
+                    "gowork",
+                    "gotmpl",
+                },
+                root_dir = util.root_pattern("go.work", "go.mod", ".git"),
             })
 
             vim.keymap.set("n", "<leader>oi", "<cmd>TypescriptOrganizeImports<CR>", { silent = true, noremap = true })
