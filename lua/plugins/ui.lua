@@ -6,7 +6,7 @@ return {
         },
         opts = {
             options = {
-                theme = "auto",
+                theme = "catppuccin",
                 globalstatus = true,
                 disabled_filetypes = {
                     statusline = {
@@ -14,6 +14,8 @@ return {
                         "alpha",
                     },
                 },
+                section_separators = "",
+                component_separators = "",
             },
             sections = {
                 lualine_a = {
