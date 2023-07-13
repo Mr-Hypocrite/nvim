@@ -156,6 +156,9 @@ return {
                 },
                 prompt_prefix = require("config.icons").Selected,
                 selection_caret = require("config.icons").Selected,
+                selection_strategy = "reset",
+                border = {},
+                borderchars = { "─", "│", "─", "│", "╭", "╮", "╯", "╰" },
                 mappings = {
                     i = {
                         ["<C-k>"] = function(...)
