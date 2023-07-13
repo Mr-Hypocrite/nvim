@@ -25,10 +25,10 @@ map("n", "<S-h>", "<cmd>BufferLineCyclePrev<cr>", { desc = "Prev buffer" })
 map("n", "<S-l>", "<cmd>BufferLineCycleNext<cr>", { desc = "Next buffer" })
 
 -- Resize window using <ctrl> arrow keys
-map("n", "<C-Right>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
-map("n", "<C-Left>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
-map("n", "<C-Down>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
-map("n", "<C-Up>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
+map("n", "<M-k>", "<cmd>resize +2<cr>", { desc = "Increase window height" })
+map("n", "<M-j>", "<cmd>resize -2<cr>", { desc = "Decrease window height" })
+map("n", "<M-h>", "<cmd>vertical resize -2<cr>", { desc = "Decrease window width" })
+map("n", "<M-l>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width" })
 
 -- Move Lines
 map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move down" })
@@ -68,6 +68,6 @@ map("n", "<leader><tab>]", "<cmd>tabnext<cr>", { desc = "Next Tab" })
 map("n", "<leader><tab>d", "<cmd>tabclose<cr>", { desc = "Close Tab" })
 map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
-map("t", "<esc>", [[<c-\><c-n>]], { desc = "Escape on terminal" })
+-- map("t", "<esc>", [[<c-\><c-n>]], { desc = "Escape on terminal" })
 
 map("n", "<C-a>", "gg<S-v>G", { desc = "Select all" })
