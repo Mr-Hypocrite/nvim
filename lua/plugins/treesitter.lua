@@ -44,6 +44,7 @@ return {
                 "yaml",
                 "dockerfile",
                 "http",
+                "go",
             },
             incremental_selection = {
                 enable = true,
