@@ -244,13 +244,6 @@ return {
         opts = {},
     },
 
-    -- We need to make sure we put this before the toggleterm
-    -- cause vim-tmux-navigator also has a <c-\> keybinding
-    {
-        "christoomey/vim-tmux-navigator",
-        config = false,
-    },
-
     {
         "akinsho/toggleterm.nvim",
         opts = {
