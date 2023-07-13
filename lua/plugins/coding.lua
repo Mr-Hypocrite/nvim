@@ -1,5 +1,4 @@
 return {
-
     {
         "L3MON4D3/LuaSnip",
         build = (not jit.os:find("Windows"))
@@ -46,7 +45,16 @@ return {
             vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
             local cmp = require("cmp")
             local border_opts = {
-                border = "single",
+                border = {
+                    { "╭", "CmpDocBorder" },
+                    { "─", "CmpDocBorder" },
+                    { "╮", "CmpDocBorder" },
+                    { "│", "CmpDocBorder" },
+                    { "╯", "CmpDocBorder" },
+                    { "─", "CmpDocBorder" },
+                    { "╰", "CmpDocBorder" },
+                    { "│", "CmpDocBorder" },
+                },
                 winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
             }
             return {
@@ -57,12 +65,13 @@ return {
                         "menu",
                     },
                     format = require("lspkind").cmp_format({
-                        mode = "symbol",
-                        maxwidth = 50,
+                        mode = "symbol_text",
+                        maxwidth = 150,
                         ellipsis_char = "...",
                     }),
                 },
                 completion = {
+                    keyword_length = 3,
                     completeopt = "menu,menuone,noinsert",
                 },
                 snippet = {
@@ -85,6 +94,7 @@ return {
                     { name = "path" },
                 }),
                 window = {
+                    scrollbar = false,
                     completion = cmp.config.window.bordered(border_opts),
                     documentation = cmp.config.window.bordered(border_opts),
                 },
