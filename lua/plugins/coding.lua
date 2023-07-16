@@ -65,10 +65,16 @@ return {
                         mode = "symbol_text",
                         maxwidth = 150,
                         ellipsis_char = "...",
+                        before = function(entry, vim_item)
+                            vim_item.menu = ({
+                                nvim_lsp = "[LSP]",
+                                buffer = "[Buffer]",
+                            })[entry.source.name]
+                            return vim_item
+                        end,
                     }),
                 },
                 completion = {
-                    keyword_length = 3,
                     completeopt = "menu,menuone,noinsert",
                 },
                 snippet = {
@@ -86,8 +92,8 @@ return {
                 sources = cmp.config.sources({
                     { name = "nvim_lsp" },
                     { name = "nvim_lsp_signature_help" },
-                    { name = "luasnip", keyword_length = 3 },
-                    { name = "buffer", keyword_length = 5 },
+                    { name = "luasnip" },
+                    { name = "buffer" },
                     { name = "path" },
                 }),
                 window = {
