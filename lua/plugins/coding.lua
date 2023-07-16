@@ -27,6 +27,7 @@ return {
 
     {
         "hrsh7th/nvim-cmp",
+        version = false,
         event = "InsertEnter",
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
