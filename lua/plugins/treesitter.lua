@@ -13,6 +13,7 @@ return {
             { "<C-Space>", desc = "Increment selection" },
             { "<bs>", desc = "Decrement selection", mode = "x" },
         },
+        cmd = { "TSUpdateSync" },
         opts = {
             sync_install = false,
             auto_install = true,
