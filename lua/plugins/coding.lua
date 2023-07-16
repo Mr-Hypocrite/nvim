@@ -8,6 +8,9 @@ return {
             history = true,
             delete_check_events = "TextChanged",
         },
+        dependencies = {
+            "hrsh7th/nvim-cmp",
+        },
         -- stylua: ignore
         keys = {
             {
