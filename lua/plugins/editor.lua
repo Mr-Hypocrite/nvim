@@ -340,4 +340,9 @@ return {
             "rcarriga/nvim-notify",
         },
     },
+
+    {
+        "mrjones2014/smart-splits.nvim",
+        opts = {},
+    },
 }
