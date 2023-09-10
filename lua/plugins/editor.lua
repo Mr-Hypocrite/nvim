@@ -303,16 +303,6 @@ return {
     },
 
     {
-        "akinsho/toggleterm.nvim",
-        opts = {
-            open_mapping = [[<C-\>]],
-            winbar = {
-                enabled = true,
-            },
-        },
-    },
-
-    {
         "kdheepak/lazygit.nvim",
         dependencies = {
             "nvim-telescope/telescope.nvim",
