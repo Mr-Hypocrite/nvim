@@ -158,6 +158,9 @@ return {
                 prompt_prefix = "",
                 selection_caret = "",
                 sorting_strategy = "ascending",
+                path_display = {
+                    "smart",
+                },
                 layout_config = {
                     horizontal = {
                         prompt_position = "top",
