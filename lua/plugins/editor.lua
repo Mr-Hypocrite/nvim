@@ -177,10 +177,16 @@ return {
                         ["<C-j>"] = function(...)
                             require("telescope.actions").move_selection_next(...)
                         end,
+                        ["<c-t>"] = function(...)
+                            require("trouble.providers.telescope").open_with_trouble(...)
+                        end,
                     },
                     n = {
                         q = function(...)
                             require("telescope.actions").close(...)
+                        end,
+                        ["<c-t>"] = function(...)
+                            require("trouble.providers.telescope").open_with_trouble(...)
                         end,
                     },
                 },
