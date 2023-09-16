@@ -166,6 +166,8 @@ return {
                         preview_width = 0.6,
                     },
                 },
+                path_display = { "smart" },
+                file_ignore_patterns = {"node_modules"},
                 mappings = {
                     i = {
                         ["<C-k>"] = function(...)

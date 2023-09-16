@@ -61,7 +61,6 @@ return {
             lsp.ensure_installed({
                 "tsserver",
                 "lua_ls",
-                "gopls",
             })
 
             local lspconfig = require("lspconfig")

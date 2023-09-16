@@ -69,4 +69,7 @@ return {
             enable_close_on_slash = true,
         },
     },
+    {
+        "nvim-treesitter/playground"
+    }
 }
