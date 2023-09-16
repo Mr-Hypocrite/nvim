@@ -71,3 +71,4 @@ map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 -- map("t", "<esc>", [[<c-\><c-n>]], { desc = "Escape on terminal" })
 
 map("n", "<C-a>", "gg<S-v>G", { desc = "Select all" })
+map("n", "<leader>A", "ggVG")
