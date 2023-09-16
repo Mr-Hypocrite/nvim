@@ -30,8 +30,8 @@ opt.numberwidth = 4
 opt.relativenumber = true -- Relative line numbers
 opt.ruler = false
 
--- disble vim intro
-opt.shortmess:append("sI")
+-- disble somem vim messages
+opt.shortmess:append({ I = true, s = true })
 
 opt.signcolumn = "yes"
 opt.splitbelow = true
@@ -39,6 +39,7 @@ opt.splitright = true
 opt.termguicolors = true
 opt.timeoutlen = 400
 opt.undofile = true
+opt.swapfile = false
 
 opt.updatetime = 250
 

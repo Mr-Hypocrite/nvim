@@ -5,15 +5,6 @@ return {
     },
 
     {
-        "willothy/flatten.nvim",
-        config = function()
-            require("flatten").setup()
-        end,
-        lazy = false,
-        priority = 1001,
-    },
-
-    {
         "rest-nvim/rest.nvim",
         opts = {},
         keys = {

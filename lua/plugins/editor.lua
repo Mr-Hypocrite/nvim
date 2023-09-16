@@ -158,6 +158,9 @@ return {
                 prompt_prefix = "",
                 selection_caret = "",
                 sorting_strategy = "ascending",
+                path_display = {
+                    "smart",
+                },
                 layout_config = {
                     horizontal = {
                         prompt_position = "top",
@@ -176,10 +179,16 @@ return {
                         ["<C-j>"] = function(...)
                             require("telescope.actions").move_selection_next(...)
                         end,
+                        ["<c-t>"] = function(...)
+                            require("trouble.providers.telescope").open_with_trouble(...)
+                        end,
                     },
                     n = {
                         q = function(...)
                             require("telescope.actions").close(...)
+                        end,
+                        ["<c-t>"] = function(...)
+                            require("trouble.providers.telescope").open_with_trouble(...)
                         end,
                     },
                 },
@@ -296,22 +305,12 @@ return {
             "nvim-tree/nvim-web-devicons",
         },
         keys = {
-            { "<leader>xx", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
-            { "<leader>xX", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
-            { "<leader>xL", "<cmd>TroubleToggle loclist<cr>", desc = "Location List (Trouble)" },
-            { "<leader>xQ", "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix List (Trouble)" },
+            { "<leader>xd", "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
+            { "<leader>xw", "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
+            { "<leader>xl", "<cmd>TroubleToggle loclist<cr>", desc = "Location List (Trouble)" },
+            { "<leader>xq", "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix List (Trouble)" },
         },
         opts = {},
-    },
-
-    {
-        "akinsho/toggleterm.nvim",
-        opts = {
-            open_mapping = [[<C-\>]],
-            winbar = {
-                enabled = true,
-            },
-        },
     },
 
     {
@@ -340,6 +339,64 @@ return {
         dependencies = {
             "MunifTanjim/nui.nvim",
             "rcarriga/nvim-notify",
+        },
+        opts = {
+            -- you can enable a preset for easier configuration
+            presets = {
+                bottom_search = true, -- use a classic bottom cmdline for search
+                command_palette = true, -- position the cmdline and popupmenu together
+                long_message_to_split = true, -- long messages will be sent to a split
+                inc_rename = false, -- enables an input dialog for inc-rename.nvim
+                lsp_doc_border = true, -- add a border to hover docs and signature help
+            },
+            routes = {
+                {
+                    filter = {
+                        event = "msg_show",
+                        kind = "",
+                        find = "written",
+                    },
+                    opts = { skip = true },
+                },
+            },
+            views = {
+                cmdline_popup = {
+                    position = {
+                        row = 5,
+                        col = "50%",
+                    },
+                    size = {
+                        width = 60,
+                        height = "auto",
+                    },
+                },
+                popupmenu = {
+                    relative = "editor",
+                    position = {
+                        row = 8,
+                        col = "50%",
+                    },
+                    size = {
+                        width = 60,
+                        height = 10,
+                    },
+                    border = {
+                        style = "rounded",
+                        padding = { 0, 1 },
+                    },
+                    win_options = {
+                        winhighlight = { Normal = "Normal", FloatBorder = "DiagnosticInfo" },
+                    },
+                },
+            },
+            lsp = {
+                -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+                override = {
+                    ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                    ["vim.lsp.util.stylize_markdown"] = true,
+                    ["cmp.entry.get_documentation"] = true,
+                },
+            },
         },
     },
 
