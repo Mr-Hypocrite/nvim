@@ -78,7 +78,6 @@ opt.wildmode = "longest:full,full" -- Command-line completion mode
 opt.winminwidth = 7 -- Minimum window width
 opt.wrap = false -- Disable line wrap
 
-opt.colorcolumn = "120"
 
 if vim.fn.has("nvim-0.9.0") == 1 then
     opt.splitkeep = "screen"
