@@ -401,6 +401,10 @@ return {
     },
 
     {
+        "psliwka/vim-smoothie",
+    },
+
+    {
         "mrjones2014/smart-splits.nvim",
         opts = {},
     },
