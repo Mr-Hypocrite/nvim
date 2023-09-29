@@ -68,7 +68,7 @@ opt.grepprg = "rg --vimgrep"
 opt.inccommand = "nosplit" -- preview incremental substitute
 opt.list = true -- Show some invisible characters (tabs...
 
-opt.pumblend = 12 -- Popup blend
+opt.pumblend = 0 -- Popup blend
 opt.pumheight = 12 -- Maximum number of entries in a popup
 opt.scrolloff = 8 -- Lines of context
 opt.sessionoptions = { "buffers", "curdir", "tabpages", "winsize" }
