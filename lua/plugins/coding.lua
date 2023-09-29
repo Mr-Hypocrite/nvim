@@ -51,7 +51,7 @@ return {
                     { "╰", "CmpDocBorder" },
                     { "│", "CmpDocBorder" },
                 },
-                winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
+                winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:Visual,Search:None",
             }
             local has_words_before = function()
                 unpack = unpack or table.unpack
