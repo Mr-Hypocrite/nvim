@@ -61,6 +61,9 @@ return {
             },
         },
     },
+    {
+        "nvim-treesitter/playground",
+    },
 
     {
         "windwp/nvim-ts-autotag",
