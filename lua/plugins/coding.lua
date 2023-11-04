@@ -1,90 +1,66 @@
 return {
     {
-        "L3MON4D3/LuaSnip",
-        version = "2.*",
-        build = (not jit.os:find("Windows"))
-                and "echo 'NOTE: jsregexp is optional, so not a big deal if it fails to build'; make install_jsregexp"
-            or nil,
-        opts = {
-            history = true,
-            delete_check_events = "TextChanged",
+        "nvim-treesitter/nvim-treesitter",
+        build = ":TSUpdate",
+        event = {
+            "BufReadPost",
+            "BufNewFile",
         },
-        config = function(_, opts)
-            local ls = require("luasnip")
-            ls.setup({
-                history = true,
-                delete_check_events = "TextChanged",
-            })
-            require("luasnip.loaders.from_lua").load({ paths = "~/snippets" })
-        end,
         dependencies = {
-            "hrsh7th/nvim-cmp",
+            "nvim-treesitter/nvim-treesitter-textobjects",
         },
-        -- stylua: ignore
+        cmd = { "TSUpadateSync" },
+        opts = function()
+            return {
+                sync_install = false,
+                auto_install = true,
+                highlight = {
+                    enable = true,
+                    additional_vim_regex_highlighting = false,
+                },
+                indent = {
+                    enabled = true,
+                },
+                ensure_installed = {
+                    "bash",
+                    "fish",
+                    "html",
+                    "javascript",
+                    "typescript",
+                    "tsx",
+                    "json",
+                    "lua",
+                    "vim",
+                    "vimdoc",
+                    "yaml",
+                    "dockerfile",
+                    "go",
+                    "rust",
+                    "css",
+                },
+            }
+        end,
     },
 
+    -- Completetion
     {
         "hrsh7th/nvim-cmp",
-        version = false,
-        event = "InsertEnter",
         dependencies = {
             "hrsh7th/cmp-nvim-lsp",
-            "hrsh7th/cmp-buffer",
-            "hrsh7th/cmp-nvim-lua",
+            "neovim/nvim-lspconfig",
+            "hrsh7th/cmp-cmdline",
             "hrsh7th/cmp-path",
-            "saadparwaiz1/cmp_luasnip",
-            "hrsh7th/cmp-nvim-lsp-signature-help",
-            "onsails/lspkind.nvim",
+            "hrsh7th/cmp-buffer",
+            "hrsh7th/cmp-vsnip",
+            "hrsh7th/vim-vsnip",
         },
+        event = "InsertEnter",
         opts = function()
-            vim.api.nvim_set_hl(0, "CmpGhostText", { link = "Comment", default = true })
-            local luasnip = require("luasnip")
             local cmp = require("cmp")
-            local border_opts = {
-                border = {
-                    { "╭", "CmpDocBorder" },
-                    { "─", "CmpDocBorder" },
-                    { "╮", "CmpDocBorder" },
-                    { "│", "CmpDocBorder" },
-                    { "╯", "CmpDocBorder" },
-                    { "─", "CmpDocBorder" },
-                    { "╰", "CmpDocBorder" },
-                    { "│", "CmpDocBorder" },
-                },
-                winhighlight = "Normal:Normal,FloatBorder:FloatBorder,CursorLine:Visual,Search:None",
-            }
-            local has_words_before = function()
-                unpack = unpack or table.unpack
-                local line, col = unpack(vim.api.nvim_win_get_cursor(0))
-                return col ~= 0
-                    and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match("%s") == nil
-            end
             return {
-                formatting = {
-                    fields = {
-                        "abbr",
-                        "kind",
-                        "menu",
-                    },
-                    format = require("lspkind").cmp_format({
-                        mode = "symbol_text",
-                        maxwidth = 150,
-                        ellipsis_char = "...",
-                        before = function(entry, vim_item)
-                            vim_item.menu = ({
-                                nvim_lsp = "[LSP]",
-                                buffer = "[Buffer]",
-                            })[entry.source.name]
-                            return vim_item
-                        end,
-                    }),
-                },
-                completion = {
-                    completeopt = "menu,menuone,noinsert",
-                },
                 snippet = {
                     expand = function(args)
-                        luasnip.lsp_expand(args.body)
+                        vim.fn["vsnip#anonymous"](args.body)
                     end,
                 },
                 mapping = cmp.mapping.preset.insert({
@@ -93,85 +69,118 @@ return {
                     ["<C-Space>"] = cmp.mapping.complete(),
                     ["<C-e>"] = cmp.mapping.abort(),
                     ["<CR>"] = cmp.mapping.confirm({ behavior = cmp.SelectBehavior.Replace, select = true }),
-                    ["<Tab>"] = cmp.mapping(function(fallback)
-                        if cmp.visible() then
-                            cmp.select_next_item()
-                        -- You could replace the expand_or_jumpable() calls with expand_or_locally_jumpable()
-                        -- they way you will only jump inside the snippet region
-                        elseif luasnip.expand_or_jumpable() then
-                            luasnip.expand_or_jump()
-                        elseif has_words_before() then
-                            cmp.complete()
-                        else
-                            fallback()
-                        end
-                    end, { "i", "s" }),
-                    ["<S-Tab>"] = cmp.mapping(function(fallback)
-                        if cmp.visible() then
-                            cmp.select_prev_item()
-                        elseif luasnip.jumpable(-1) then
-                            luasnip.jump(-1)
-                        else
-                            fallback()
-                        end
-                    end, { "i", "s" }),
                 }),
                 sources = cmp.config.sources({
                     { name = "nvim_lsp" },
-                    { name = "nvim_lsp_signature_help" },
-                    { name = "luasnip" },
-                    { name = "buffer" },
+                    { name = "vsnip" },
+                }, {
                     { name = "path" },
+                    { name = "buffer" },
                 }),
-                window = {
-                    scrollbar = false,
-                    completion = cmp.config.window.bordered(border_opts),
-                    documentation = cmp.config.window.bordered(border_opts),
-                },
             }
         end,
     },
 
+    -- Lsp
     {
-        "echasnovski/mini.pairs",
+        "neovim/nvim-lspconfig",
+        event = {
+            "BufReadPre",
+            "BufNewFile",
+        },
+        dependencies = {
+            { "hrsh7th/cmp-nvim-lsp" },
+        },
+    },
+
+    {
+        "VonHeikemen/lsp-zero.nvim",
+        branch = "v3.x",
+        event = {
+            "BufReadPre",
+            "BufNewFile",
+        },
+        lazy = true,
+        dependencies = {
+            "neovim/nvim-lspconfig",
+        },
+        config = function()
+            local lsp_zero = require("lsp-zero")
+            local lspconfig = require("lspconfig")
+
+            lsp_zero.on_attach(function(_, bufnr)
+                lsp_zero.default_keymaps({ buffer = bufnr })
+            end)
+            lsp_zero.setup_servers({ "rust_analyzer", "gopls" })
+
+            lspconfig.lua_ls.setup(lsp_zero.nvim_lua_ls())
+            lspconfig.tsserver.setup({
+                single_file_support = false,
+                commands = {
+                    TypescriptOrganizeImports = {
+                        function()
+                            local param = {
+                                command = "_typescript.organizeImports",
+                                arguments = {
+                                    vim.api.nvim_buf_get_name(0),
+                                },
+                                title = "Organize ts imports",
+                            }
+                            vim.lsp.buf.execute_command(param)
+                        end,
+                    },
+                },
+            })
+
+            vim.keymap.set("n", "<leader>oi", "<cmd>TypescriptOrganizeImports<cr>", { silent = true, noremap = true })
+            vim.keymap.set(
+                "n",
+                "<leader>ami",
+                "<cmd>TypescriptAddMissingImports<CR>",
+                { silent = true, noremap = true }
+            )
+            vim.keymap.set("n", "<leader>fa", "<cmd>TypescriptFixAll<CR>", { silent = true, noremap = true })
+            vim.keymap.set("n", "<leader>ru", "<cmd>TypescriptRemoveUnused<CR>", { silent = true, noremap = true })
+        end,
+    },
+
+    {
+        "williamboman/mason.nvim",
         event = "VeryLazy",
-        opts = {},
+        opts = function()
+            return {}
+        end,
     },
 
     {
-        "numToStr/Comment.nvim",
-        event = "VeryLazy",
-        opts = {},
-    },
-
-    {
-        "echasnovski/mini.surround",
-        opts = {},
-    },
-
-    {
-        "folke/zen-mode.nvim",
-        keys = {
-            {
-                "<leader>zm",
-                function()
-                    require("zen-mode").toggle({
-                        window = {
-                            width = 0.85,
-                        },
-                    })
+        "mhartington/formatter.nvim",
+        event = {
+            "BufReadPost",
+            "BufNewFile",
+        },
+        config = function()
+            local formatter = require("formatter")
+            formatter.setup({
+                logging = true,
+                log_level = vim.log.levels.WARN,
+                filetype = {
+                    lua = {
+                        require("formatter.filetypes.lua").stylua,
+                    },
+                    typescript = {
+                        require("formatter.filetypes.typescript").prettiereslint,
+                    },
+                    typescriptreact = {
+                        require("formatter.filetypes.typescript").prettiereslint,
+                    },
+                },
+            })
+            vim.api.nvim_create_autocmd({ "BufWritePost" }, {
+                group = vim.api.nvim_create_augroup("format_on_save", { clear = true }),
+                callback = function()
+                    vim.cmd("Format")
                 end,
-            },
-        },
-        opts = {
-            plugins = {
-                twilight = { enabled = true },
-            },
-        },
-    },
-
-    {
-        "folke/twilight.nvim",
-        opts = {},
+            })
+        end,
     },
 }
