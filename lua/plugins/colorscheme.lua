@@ -12,6 +12,7 @@ return {
                     bg = u.lighten(colors.mantle, 0.90, colors.surface0),
                 },
                     Visual = {
+                    fg = colors.text,
                     bg = u.lighten(colors.mantle, 0.10, colors.overlay1),
                 },
             }
