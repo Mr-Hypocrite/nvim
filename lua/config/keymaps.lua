@@ -72,3 +72,7 @@ map("n", "<leader><tab>[", "<cmd>tabprevious<cr>", { desc = "Previous Tab" })
 
 map("n", "<C-a>", "gg<S-v>G", { desc = "Select all" })
 map("n", "<leader>A", "ggVG")
+
+--indent/outdent Lines
+map("v", "<Tab>", ">gv", { desc = "Indent select line", remap = true })
+map("v", "<S-Tab>", "<gv", { desc = "Outdent select lines", remap = true })
