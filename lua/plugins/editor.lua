@@ -60,8 +60,8 @@ return {
             local actions = require("telescope.actions")
             return {
                 defaults = {
-                    prompt_prefix = "",
-                    selection_caret = "",
+                    prompt_prefix = "",
+                    selection_caret = "",
                     sorting_strategy = "ascending",
                     path_display = {
                         "smart",
