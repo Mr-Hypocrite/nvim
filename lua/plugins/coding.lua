@@ -174,6 +174,11 @@ return {
                     typescriptreact = {
                         require("formatter.filetypes.typescript").prettiereslint,
                     },
+                    go = {
+                        require("formatter.filetypes.go").gofmt,
+                        require("formatter.filetypes.go").goimports,
+                        require("formatter.filetypes.go").golines,
+                    },
                 },
             })
             vim.api.nvim_create_autocmd({ "BufWritePost" }, {
