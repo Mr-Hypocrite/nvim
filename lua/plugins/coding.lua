@@ -110,6 +110,7 @@ return {
 
             lsp_zero.on_attach(function(_, bufnr)
                 lsp_zero.default_keymaps({ buffer = bufnr })
+                vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { silent = true, noremap = true })
             end)
             lsp_zero.setup_servers({ "rust_analyzer", "gopls" })
 
