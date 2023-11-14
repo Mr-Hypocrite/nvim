@@ -79,8 +79,11 @@ return {
         end,
         keys = {
             { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "" },
-            { "<leader>of", "<cmd>Telescope buffers<cr>", desc = "" },
+            { "<leader>of", "<cmd>Telescope oldfiles<cr>", desc = "" },
             { "<leader>lg", "<cmd>Telescope live_grep<cr>", desc = "" },
+            { "<leader>gs", "<cmd>Telescope git_status<cr>", desc = "" },
+            { "<leader>ds", "<cmd>Telescope lsp_document_symbols<cr>", desc = "" },
+            { "<leader>ws", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "" },
         },
     },
 
