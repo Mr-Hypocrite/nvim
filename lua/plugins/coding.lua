@@ -190,7 +190,7 @@ return {
             vim.api.nvim_create_autocmd({ "BufWritePost" }, {
                 group = vim.api.nvim_create_augroup("format_on_save", { clear = true }),
                 callback = function()
-                    vim.cmd("Format")
+                    vim.cmd("FormatWrite")
                 end,
             })
         end,
