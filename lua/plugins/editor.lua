@@ -78,10 +78,12 @@ return {
             }
         end,
         keys = {
-            { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "[F]ind [F]iles" },
-            { "<leader>of", "<cmd>Telescope oldfiles<cr>", desc = "[O]old [F]iles" },
-            { "<leader>lg", "<cmd>Telescope live_grep<cr>", desc = "[L]ive [G]rep" },
-            { "<leader>gs", "<cmd>Telescope git_status<cr>", desc = "[G]it [S]tatus" },
+            { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "" },
+            { "<leader>of", "<cmd>Telescope oldfiles<cr>", desc = "" },
+            { "<leader>lg", "<cmd>Telescope live_grep<cr>", desc = "" },
+            { "<leader>gs", "<cmd>Telescope git_status<cr>", desc = "" },
+            { "<leader>ds", "<cmd>Telescope lsp_document_symbols<cr>", desc = "" },
+            { "<leader>ws", "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>", desc = "" },
         },
     },
 
@@ -277,30 +279,28 @@ return {
     },
 
     {
-        "lukas-reineke/indent-blankline.nvim",
-        main = "ibl",
-        event = { "BufReadPost", "BufNewFile" },
-        opts = {
-            indent = {
-                char = "┊",
-            },
-            exclude = {
-                filetypes = {
-                    "help",
-                    "alpha",
-                    "dashboard",
-                    "neo-tree",
-                    "Trouble",
-                    "lazy",
-                    "mason",
-                    "notify",
-                    "toggleterm",
-                    "lazyterm",
-                },
-            },
-            scope = {
-                enabled = true,
-            },
+        "kevinhwang91/nvim-ufo",
+        dependencies = {
+            "kevinhwang91/promise-async",
         },
+        opt = {},
+        config = function()
+            local ufo = require("ufo")
+            vim.o.foldcolumn = "1"
+            vim.o.foldlevel = 99
+            vim.o.foldlevelstart = 99
+            vim.o.foldenable = true
+
+            vim.keymap.set("n", "zR", ufo.openAllFolds)
+            vim.keymap.set("n", "zM", ufo.closeAllFolds)
+            ufo.setup({
+                provider_selector = function()
+                    return {
+                        "treesitter",
+                        "indent",
+                    }
+                end,
+            })
+        end,
     },
 }
