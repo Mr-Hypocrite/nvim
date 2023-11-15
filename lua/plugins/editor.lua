@@ -78,9 +78,10 @@ return {
             }
         end,
         keys = {
-            { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "" },
-            { "<leader>of", "<cmd>Telescope buffers<cr>", desc = "" },
-            { "<leader>lg", "<cmd>Telescope live_grep<cr>", desc = "" },
+            { "<leader>ff", "<cmd>Telescope find_files<cr>", desc = "[F]ind [F]iles" },
+            { "<leader>of", "<cmd>Telescope oldfiles<cr>", desc = "[O]old [F]iles" },
+            { "<leader>lg", "<cmd>Telescope live_grep<cr>", desc = "[L]ive [G]rep" },
+            { "<leader>gs", "<cmd>Telescope git_status<cr>", desc = "[G]it [S]tatus" },
         },
     },
 
