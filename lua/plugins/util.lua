@@ -85,4 +85,5 @@ return {
     },
 
     { "folke/neodev.nvim", opts = {} },
+    { "brenoprata10/nvim-highlight-colors", opts = {}}
 }
