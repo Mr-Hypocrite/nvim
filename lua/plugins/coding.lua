@@ -202,14 +202,45 @@ return {
                     typescriptreact = {
                         require("formatter.filetypes.typescript").prettiereslint,
                     },
+                    go = {
+                        require("formatter.filetypes.go").gofmt,
+                        require("formatter.filetypes.go").goimports,
+                        require("formatter.filetypes.go").golines,
+                    },
                 },
             })
             vim.api.nvim_create_autocmd({ "BufWritePost" }, {
                 group = vim.api.nvim_create_augroup("format_on_save", { clear = true }),
                 callback = function()
-                    vim.cmd("Format")
+                    vim.cmd("FormatWrite")
                 end,
             })
+        end,
+    },
+
+    {
+        "folke/trouble.nvim",
+        config = function()
+            local trouble = require("trouble")
+            trouble.setup()
+            vim.keymap.set("n", "<leader>xx", function()
+                trouble.toggle()
+            end)
+            vim.keymap.set("n", "<leader>xw", function()
+                trouble.toggle("workspace_diagnostics")
+            end)
+            vim.keymap.set("n", "<leader>xd", function()
+                trouble.toggle("document_diagnostics")
+            end)
+            vim.keymap.set("n", "<leader>xq", function()
+                trouble.toggle("quickfix")
+            end)
+            vim.keymap.set("n", "<leader>xl", function()
+                trouble.toggle("loclist")
+            end)
+            vim.keymap.set("n", "gR", function()
+                trouble.toggle("lsp_references")
+            end)
         end,
     },
 }
