@@ -83,7 +83,15 @@ return {
             },
         },
     },
-
     { "folke/neodev.nvim", opts = {} },
-    { "brenoprata10/nvim-highlight-colors", opts = {}}
+    { "brenoprata10/nvim-highlight-colors", opts = {}},
+    {
+        "rcarriga/nvim-notify",
+        opts = {
+            background_colour = "#000000",
+        },
+        config = function(_, opts)
+            require("notify").setup(opts)
+        end,
+    },
 }
