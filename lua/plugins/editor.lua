@@ -10,17 +10,17 @@ return {
                 local u = require("catppuccin.utils.colors")
                 return {
                     CursorLine = {
-                    bg = u.lighten(colors.mantle, 0.90, colors.surface0),
-                },
+                        bg = u.lighten(colors.mantle, 0.90, colors.surface0),
+                    },
                     Visual = {
-                    fg = colors.text,
-                    bg = u.lighten(colors.mantle, 0.10, colors.overlay1),
-                },
-            }
+                        fg = colors.text,
+                        bg = u.lighten(colors.mantle, 0.10, colors.overlay1),
+                    },
+                }
             end,
-                transparent_background = true
+            transparent_background = true,
         },
-        config = function(_,opts)
+        config = function(_, opts)
             require("catppuccin").setup(opts)
             vim.cmd.colorscheme("catppuccin-mocha")
         end,
@@ -316,5 +316,14 @@ return {
                 enabled = true,
             },
         },
+    },
+    {
+        "rcarriga/nvim-notify",
+        opts = {
+            background_colour = "#000000",
+        },
+        config = function(_, opts)
+            require("notify").setup(opts)
+        end,
     },
 }
