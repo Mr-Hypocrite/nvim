@@ -268,4 +268,8 @@ return {
             end)
         end,
     },
+    {
+        "echasnovski/mini.surround",
+        opts = {},
+    },
 }
