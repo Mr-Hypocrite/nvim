@@ -5,9 +5,9 @@ return {
         event = {
             "BufReadPost",
             "BufNewFile",
-            },
-            dependencies = {
-                "nvim-treesitter/nvim-treesitter-textobjects",
+        },
+        dependencies = {
+            "nvim-treesitter/nvim-treesitter-textobjects",
         },
         cmd = { "TSUpadateSync" },
         opts = function()
@@ -46,6 +46,7 @@ return {
     {
         "hrsh7th/nvim-cmp",
         dependencies = {
+            "saadparwaiz1/cmp_luasnip",
             "hrsh7th/cmp-nvim-lsp",
             "neovim/nvim-lspconfig",
             "hrsh7th/cmp-cmdline",
@@ -57,6 +58,7 @@ return {
         event = "InsertEnter",
         opts = function()
             local cmp = require("cmp")
+            local luasnip = require("luasnip")
             local border_opts = {
                 border = {
                     { "╭", "CmpDocBorder" },
@@ -71,9 +73,10 @@ return {
                 winhighlight = "Normal:Pmenu,FloatBorder:Pmenu,CursorLine:Visual,Search:None",
             }
             return {
+                completion = { completeopt = "menu,menuone,noselect" },
                 snippet = {
                     expand = function(args)
-                        vim.fn["vsnip#anonymous"](args.body)
+                        require("luasnip").lsp_expand(args.body)
                     end,
                 },
                 mapping = cmp.mapping.preset.insert({
@@ -81,9 +84,24 @@ return {
                     ["<C-k>"] = cmp.mapping.select_prev_item(),
                     ["<C-Space>"] = cmp.mapping.complete(),
                     ["<C-e>"] = cmp.mapping.abort(),
-                    ["<CR>"] = cmp.mapping.confirm({ behavior = cmp.SelectBehavior.Replace, select = true }),
+                    ["<C-p>"] = cmp.mapping(function(fallback)
+                        if luasnip.jumpable(-1) then
+                            luasnip.jump(-1)
+                        else
+                            cmp.mapping.close()
+                        end
+                    end, { "i", "s" }),
+                    ["<C-n>"] = cmp.mapping(function(fallback)
+                        if luasnip.jumpable(1) then
+                            luasnip.jump(1)
+                        else
+                            cmp.mapping.close()
+                        end
+                    end, { "i", "s" }),
+                    ["<CR>"] = cmp.mapping.confirm({ behavior = cmp.SelectBehavior.Replace, select = false }),
                 }),
                 sources = cmp.config.sources({
+                    { name = "luasnip" },
                     { name = "nvim_lsp" },
                     { name = "vsnip" },
                 }, {
@@ -95,6 +113,13 @@ return {
                     documentation = cmp.config.window.bordered(border_opts),
                 },
             }
+        end,
+    },
+    {
+        "L3MON4D3/LuaSnip",
+        lazy = false,
+        config = function()
+            require("luasnip.loaders.from_lua").load({ paths = "~/.config/nvim/snippets/" })
         end,
     },
 
