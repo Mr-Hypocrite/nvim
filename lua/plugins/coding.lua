@@ -37,6 +37,7 @@ return {
                     "go",
                     "rust",
                     "css",
+                    "proto",
                 },
             }
         end,
@@ -110,9 +111,20 @@ return {
 
             lsp_zero.on_attach(function(_, bufnr)
                 lsp_zero.default_keymaps({ buffer = bufnr })
-                vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { silent = true, noremap = true })
+                vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "[R]e[N]ame" })
+                vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, { desc = "[C]ode [A]ction" })
+                vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, { desc = "[G]oto [D]efinition" })
+                vim.keymap.set(
+                    "n",
+                    "<leader>gr",
+                    require("telescope.builtin").lsp_references,
+                    { desc = "[G]oto [R]eference" }
+                )
+                vim.keymap.set("n", "<leader>gI", vim.lsp.buf.implementation, { desc = "[G]oto [I]mplementation" })
+                vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
+                vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { desc = "Hover Documentation" })
             end)
-            lsp_zero.setup_servers({ "rust_analyzer", "gopls" })
+            lsp_zero.setup_servers({ "rust_analyzer", "gopls", "bufls", "phpactor" })
 
             lspconfig.lua_ls.setup(lsp_zero.nvim_lua_ls())
             lspconfig.tsserver.setup({
@@ -179,6 +191,10 @@ return {
                         require("formatter.filetypes.go").goimports,
                         require("formatter.filetypes.go").golines,
                     },
+                    php = {
+                        require("formatter.filetypes.php").phpcbf,
+                        require("formatter.filetypes.php").php_cs_fixer,
+                    },
                 },
             })
             vim.api.nvim_create_autocmd({ "BufWritePost" }, {
@@ -187,6 +203,32 @@ return {
                     vim.cmd("FormatWrite")
                 end,
             })
+        end,
+    },
+
+    {
+        "folke/trouble.nvim",
+        config = function()
+            local trouble = require("trouble")
+            trouble.setup()
+            vim.keymap.set("n", "<leader>xx", function()
+                trouble.toggle()
+            end)
+            vim.keymap.set("n", "<leader>xw", function()
+                trouble.toggle("workspace_diagnostics")
+            end)
+            vim.keymap.set("n", "<leader>xd", function()
+                trouble.toggle("document_diagnostics")
+            end)
+            vim.keymap.set("n", "<leader>xq", function()
+                trouble.toggle("quickfix")
+            end)
+            vim.keymap.set("n", "<leader>xl", function()
+                trouble.toggle("loclist")
+            end)
+            vim.keymap.set("n", "gR", function()
+                trouble.toggle("lsp_references")
+            end)
         end,
     },
 }

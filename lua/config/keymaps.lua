@@ -33,6 +33,8 @@ map("n", "<M-l>", "<cmd>vertical resize +2<cr>", { desc = "Increase window width
 -- Move Lines
 map("v", "J", ":m '>+1<CR>gv=gv", { desc = "Move down" })
 map("v", "K", ":m '<-2<CR>gv=gv", { desc = "Move up" })
+map("v", "<Tab>", ">gv")
+map("v", "<S-Tab>", "<gv")
 
 map({ "i", "n" }, "<esc>", "<cmd>noh<cr><esc>", { desc = "Escape and clear hlsearch" })
 
