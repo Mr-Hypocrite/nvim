@@ -37,6 +37,7 @@ return {
                     "go",
                     "rust",
                     "css",
+                    "proto",
                 },
             }
         end,
@@ -123,7 +124,7 @@ return {
                 vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
                 vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { desc = "Hover Documentation" })
             end)
-            lsp_zero.setup_servers({ "rust_analyzer", "gopls" })
+            lsp_zero.setup_servers({ "rust_analyzer", "gopls", "bufls", "phpactor" })
 
             lspconfig.lua_ls.setup(lsp_zero.nvim_lua_ls())
             lspconfig.tsserver.setup({
@@ -189,6 +190,10 @@ return {
                         require("formatter.filetypes.go").gofmt,
                         require("formatter.filetypes.go").goimports,
                         require("formatter.filetypes.go").golines,
+                    },
+                    php = {
+                        require("formatter.filetypes.php").phpcbf,
+                        require("formatter.filetypes.php").php_cs_fixer,
                     },
                 },
             })
