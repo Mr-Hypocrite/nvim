@@ -49,7 +49,7 @@ return {
                     selection_caret = "",
                     sorting_strategy = "ascending",
                     path_display = {
-                        "smart",
+                        "shorten",
                     },
                     layout_config = {
                         horizontal = {
