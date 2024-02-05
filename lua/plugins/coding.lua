@@ -37,6 +37,7 @@ return {
                     "go",
                     "rust",
                     "css",
+                    "proto",
                 },
             }
         end,
@@ -123,6 +124,20 @@ return {
         end,
     },
 
+    {
+        "pmizio/typescript-tools.nvim",
+        dependencies = { "nvim-lua/plenary.nvim", "neovim/nvim-lspconfig", "VonHeikemen/lsp-zero.nvim" },
+        opts = {},
+        config = function(_, config)
+            local tstools = require("typescript-tools")
+            tstools.setup(config)
+            vim.keymap.set("n", "<leader>toi", "<CMD>TSToolsOrganizeImports<CR>")
+            vim.keymap.set("n", "<leader>tsi", "<CDM>TSToolsSortImports<CR>")
+            vim.keymap.set("n", "<leader>tai", "<CDM>TSToolsAddMissingImports<CR>")
+            vim.keymap.set("n", "<leader>tfa", "<CMD>TSToolsFixAll<CR>")
+        end,
+    },
+
     -- Lsp
     {
         "neovim/nvim-lspconfig",
@@ -165,36 +180,9 @@ return {
                 vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
                 vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { desc = "Hover Documentation" })
             end)
-            lsp_zero.setup_servers({ "rust_analyzer", "gopls" })
+            lsp_zero.setup_servers({ "rust_analyzer", "gopls", "bufls", "phpactor" })
 
             lspconfig.lua_ls.setup(lsp_zero.nvim_lua_ls())
-            lspconfig.tsserver.setup({
-                single_file_support = false,
-                commands = {
-                    TypescriptOrganizeImports = {
-                        function()
-                            local param = {
-                                command = "_typescript.organizeImports",
-                                arguments = {
-                                    vim.api.nvim_buf_get_name(0),
-                                },
-                                title = "Organize ts imports",
-                            }
-                            vim.lsp.buf.execute_command(param)
-                        end,
-                    },
-                },
-            })
-
-            vim.keymap.set("n", "<leader>oi", "<cmd>TypescriptOrganizeImports<cr>", { silent = true, noremap = true })
-            vim.keymap.set(
-                "n",
-                "<leader>ami",
-                "<cmd>TypescriptAddMissingImports<CR>",
-                { silent = true, noremap = true }
-            )
-            vim.keymap.set("n", "<leader>fa", "<cmd>TypescriptFixAll<CR>", { silent = true, noremap = true })
-            vim.keymap.set("n", "<leader>ru", "<cmd>TypescriptRemoveUnused<CR>", { silent = true, noremap = true })
         end,
     },
 
@@ -222,15 +210,35 @@ return {
                         require("formatter.filetypes.lua").stylua,
                     },
                     typescript = {
-                        require("formatter.filetypes.typescript").prettiereslint,
+                        require("formatter.filetypes.typescript").prettierd,
+                        require("formatter.filetypes.typescript").eslint_d,
                     },
                     typescriptreact = {
-                        require("formatter.filetypes.typescript").prettiereslint,
+                        require("formatter.filetypes.typescript").prettierd,
+                        require("formatter.filetypes.typescript").eslint_d,
+                    },
+                    javascript = {
+                        require("formatter.filetypes.typescript").prettierd,
+                        require("formatter.filetypes.typescript").eslint_d,
+                    },
+                    javascriptreact = {
+                        require("formatter.filetypes.typescript").prettierd,
+                        require("formatter.filetypes.typescript").eslint_d,
+                    },
+                    json = {
+                        require("formatter.filetypes.json").prettierd,
+                    },
+                    jsonc = {
+                        require("formatter.filetypes.json").prettierd,
                     },
                     go = {
                         require("formatter.filetypes.go").gofmt,
                         require("formatter.filetypes.go").goimports,
                         require("formatter.filetypes.go").golines,
+                    },
+                    php = {
+                        require("formatter.filetypes.php").phpcbf,
+                        require("formatter.filetypes.php").php_cs_fixer,
                     },
                 },
             })
