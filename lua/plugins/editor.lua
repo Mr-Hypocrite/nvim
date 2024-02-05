@@ -10,7 +10,7 @@ return {
                 local u = require("catppuccin.utils.colors")
                 return {
                     CursorLine = {
-                        bg = u.lighten(colors.mantle, 0.90, colors.surface0),
+                        bg = u.lighten(colors.surface0, 0.90, colors.overlay1),
                     },
                     Visual = {
                         fg = colors.text,
@@ -317,5 +317,9 @@ return {
                 end,
             })
         end,
+    },
+
+    {
+        "mbbill/undotree",
     },
 }
