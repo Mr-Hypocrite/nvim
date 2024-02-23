@@ -131,10 +131,10 @@ return {
         config = function(_, config)
             local tstools = require("typescript-tools")
             tstools.setup(config)
-            vim.keymap.set("n", "<leader>toi", "<CMD>TSToolsOrganizeImports<CR>")
-            vim.keymap.set("n", "<leader>tsi", "<CDM>TSToolsSortImports<CR>")
-            vim.keymap.set("n", "<leader>tai", "<CDM>TSToolsAddMissingImports<CR>")
-            vim.keymap.set("n", "<leader>tfa", "<CMD>TSToolsFixAll<CR>")
+            vim.keymap.set("n", "<leader>oi", "<CMD>TSToolsOrganizeImports<CR>")
+            vim.keymap.set("n", "<leader>si", "<CDM>TSToolsSortImports<CR>")
+            vim.keymap.set("n", "<leader>ai", "<CDM>TSToolsAddMissingImports<CR>")
+            vim.keymap.set("n", "<leader>fa", "<CMD>TSToolsFixAll<CR>")
         end,
     },
 
