@@ -36,6 +36,7 @@ return {
         },
         opts = {
             close_if_last_window = true,
+            git_status_async = false,
             filesystem = {
                 follow_current_file = {
                     enabled = true,
