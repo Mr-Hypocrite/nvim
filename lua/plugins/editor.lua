@@ -47,6 +47,7 @@ return {
         },
         keys = {
             { "<leader>fe", "<cmd>Neotree toggle<cr>", desc = "Toggle Neotree" },
+            { "<leader>e", false },
         },
     },
 
@@ -352,5 +353,23 @@ return {
         config = function()
             require("smoothcursor").setup()
         end,
+    },
+    {
+        "stevearc/oil.nvim",
+        opts = function()
+            local oil = require("oil")
+            vim.keymap.set("n", "<leader>e", function()
+                            oil.toggle_float()
+            end)
+            return {
+                view_options = {
+                    show_hidden = true,
+                },
+                float = {
+                    padding = 5,
+                },
+            }
+        end,
+        dependencies = { "nvim-tree/nvim-web-devicons" },
     },
 }
