@@ -133,6 +133,9 @@ return {
     {
         "echasnovski/mini.bufremove",
         opts = {},
+        config = function()
+            vim.keymap.set("n", "<leader>BD", "<CMD>%bd<CR>", { desc = "Close all buffers" })
+        end,
         keys = function()
             local bufremove = require("mini.bufremove")
             return {
@@ -359,7 +362,7 @@ return {
         opts = function()
             local oil = require("oil")
             vim.keymap.set("n", "<leader>e", function()
-                            oil.toggle_float()
+                oil.toggle_float()
             end)
             return {
                 view_options = {
