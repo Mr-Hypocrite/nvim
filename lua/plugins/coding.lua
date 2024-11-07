@@ -263,7 +263,7 @@ return {
                 trouble.toggle("workspace_diagnostics")
             end)
             vim.keymap.set("n", "<leader>xd", function()
-                trouble.toggle("document_diagnostics")
+                trouble.toggle("diagnostics")
             end)
             vim.keymap.set("n", "<leader>xq", function()
                 trouble.toggle("quickfix")
