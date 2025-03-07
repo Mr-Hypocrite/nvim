@@ -9,6 +9,7 @@ return {
         dependencies = {
             "nvim-treesitter/nvim-treesitter-textobjects",
         },
+        version = "0.1.3",
         cmd = { "TSUpadateSync" },
         opts = function()
             return {
@@ -38,6 +39,8 @@ return {
                     "rust",
                     "css",
                     "proto",
+                    "c",
+                    "help",
                 },
             }
         end,
@@ -180,7 +183,7 @@ return {
                 vim.keymap.set("n", "K", vim.lsp.buf.hover, { desc = "Hover Documentation" })
                 vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, { desc = "Hover Documentation" })
             end)
-            lsp_zero.setup_servers({ "rust_analyzer", "gopls", "bufls", "phpactor" })
+            lsp_zero.setup_servers({ "rust_analyzer", "gopls", "buf_ls" })
 
             lspconfig.lua_ls.setup(lsp_zero.nvim_lua_ls())
         end,
@@ -218,12 +221,12 @@ return {
                         require("formatter.filetypes.typescript").eslint_d,
                     },
                     javascript = {
-                        require("formatter.filetypes.typescript").prettierd,
-                        require("formatter.filetypes.typescript").eslint_d,
+                        require("formatter.filetypes.javascript").prettierd,
+                        require("formatter.filetypes.javascript").eslint_d,
                     },
                     javascriptreact = {
-                        require("formatter.filetypes.typescript").prettierd,
-                        require("formatter.filetypes.typescript").eslint_d,
+                        require("formatter.filetypes.javascript").prettierd,
+                        require("formatter.filetypes.javascript").eslint_d,
                     },
                     json = {
                         require("formatter.filetypes.json").prettierd,
@@ -237,8 +240,14 @@ return {
                         require("formatter.filetypes.go").golines,
                     },
                     php = {
-                        require("formatter.filetypes.php").phpcbf,
-                        require("formatter.filetypes.php").php_cs_fixer,
+                        -- require("formatter.filetypes.php").phpcbf,
+                        -- require("formatter.filetypes.php").php_cs_fixer,
+                    },
+                    css = {
+                        require("formatter.filetypes.css").prettierd,
+                    },
+                    html = {
+                        require("formatter.filetypes.html").prettierd,
                     },
                 },
             })
