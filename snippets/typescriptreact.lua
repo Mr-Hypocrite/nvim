@@ -37,4 +37,31 @@ return {
             }
         )
     ),
+    s(
+        {
+            trig = "rcomp_interface",
+            dscr = "Insert react FC component with interface",
+        },
+        fmta(
+            [[
+                import { FC } from "react"
+
+                export interface $1Props {}
+
+                export const $1: FC<$1Props> = () => {
+
+                    return null
+
+                }
+            ]],
+            {
+                i(1),
+                rep(1),
+                rep(1),
+            },
+            {
+                delimiters = "$1",
+            }
+        )
+    ),
 }
